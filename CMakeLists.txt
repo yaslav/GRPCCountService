@@ -37,7 +37,11 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_BINARY_DIR})
 add_custom_target(proto_python ALL DEPENDS ${PROTO_PYS})
 
 if (EXISTS ${PROTO_PYS})
-	configure_file(${PROTO_PYS} ${CMAKE_SOURCE_DIR}/${PYS_BASENAME} COPYONLY) # copy python file into source dir
+    if(NOT EXISTS ${CMAKE_SOURCE_DIR}/python)
+        message("Folder python does not exist, creating it...")
+        file(MAKE_DIRECTORY ${CMAKE_SOURCE_DIR}/python)
+    endif()
+	configure_file(${PROTO_PYS} ${CMAKE_SOURCE_DIR}/python/${PYS_BASENAME} COPYONLY) # copy python file into source dir
 else() 
 	message("Python file does not exist: ${PROTO_PYS}")
 endif()
