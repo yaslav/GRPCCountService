@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package counter;
+
+service CountService{
+	rpc sendRequest (CountRequest) returns (CountResponse) {}
+}
+
+
+message CountRequest{
+	int32 count = 1;
+}
+
+message CountResponse{
+	int32 count = 1;
+}
