@@ -20,8 +20,6 @@ file(GLOB CPP_FILES
     "cpp/*.hpp"
 )
 
-protobuf_generate_python(PROTO_PYS ${PROTO_FILES})
-get_filename_component(PYS_BASENAME ${PROTO_PYS} NAME) # get filename of generated python file
 
 protobuf_generate_cpp(PROTO_SRC PROTO_HDRS ${PROTO_FILES})
 PROTOBUF_GENERATE_GRPC_CPP(PROTO_GRPC_SRC PROTO_GRPC_HDRS ${PROTO_FILES})
@@ -35,16 +33,6 @@ target_link_libraries(${PROJECT_NAME} gRPC::grpc++)
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_BINARY_DIR})
 
 add_custom_target(proto_python ALL DEPENDS ${PROTO_PYS})
-
-if (EXISTS ${PROTO_PYS})
-    if(NOT EXISTS ${CMAKE_SOURCE_DIR}/python)
-        message("Folder python does not exist, creating it...")
-        file(MAKE_DIRECTORY ${CMAKE_SOURCE_DIR}/python)
-    endif()
-	configure_file(${PROTO_PYS} ${CMAKE_SOURCE_DIR}/python/${PYS_BASENAME} COPYONLY) # copy python file into source dir
-else() 
-	message("Python file does not exist: ${PROTO_PYS}")
-endif()
 
 
 # disable protobuf warnings as done here https://github.com/protocolbuffers/protobuf/blob/master/cmake/CMakeLists.txt
