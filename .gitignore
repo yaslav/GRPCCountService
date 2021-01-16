@@ -341,3 +341,5 @@ healthchecksdb
 
 # build files
 out/
+# python virtual environment folder
+venv
