@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <grpcpp/grpcpp.h>
 #include "counter.grpc.pb.h"
 #include "counter.pb.h"
@@ -15,7 +16,8 @@ class CountServiceImplementation final : public counter::CountService::Service{
 		counter::CountResponse* response
 	) override {
 		int count = request->count();
-		response->set_count(count++);
+		std::cout << "Count received: " << count << std::endl;
+		response->set_count(count + 1);
 		return Status::OK;
 	}
 };
