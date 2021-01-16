@@ -16,8 +16,8 @@ find_program(GRPC_CPP_PLUGIN grpc_cpp_plugin) # Get full path to plugin
 
 file(GLOB PROTO_FILES "proto/*.proto")
 file(GLOB CPP_FILES 
-    *.cpp
-    *.hpp
+    "cpp/*.cpp"
+    "cpp/*.hpp"
 )
 
 protobuf_generate_python(PROTO_PYS ${PROTO_FILES})
